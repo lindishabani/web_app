@@ -1,0 +1,72 @@
+{{define "content"}}
+
+ <!-- HEADER -->
+  <header id="main-header" class="py-2 bg-info text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1>
+             Single Post</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ACTIONS -->
+
+<br>
+<div class="col-md-12 blogShort">
+  {{/*https://image.shutterstock.com/image-photo/wide-panorama-beautiful-autumn-field-260nw-751127782.jpg*/}}
+    <div class="text-center">
+      <img src="/assets/images/image-{{.Post.Id}}.jpg" class="img-fluid" alt="Responsive image">
+    </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 post-title-block">
+            <h1 class="text-center text-info display-2">{{.Post.Title}}</h1>
+            <p class="text-center">| {{.Post.Category}} | {{.Post.Date}} |</p>
+        </div>
+    <article>
+        <p>
+        {{.Post.Description}}
+        </p>        
+    </article>
+</div>
+<div class="container">
+<div class="jumbotron">
+
+<h3> Comments </h3>
+  {{if .Auth}}
+    <form enctype="multipart/form-data" id="new_article" method="POST" action="/comment">
+    
+      <input type="hidden" name="id" id="id" value="{{ .Post.Id }}">
+      <label for="body">Comment</label>
+      <textarea style="width: 50%" name="comment" class="form-control"></textarea>
+      <br>
+      <input class="btn btn-success" type="submit" name="comment" value="Comment">
+      
+    </form>
+  {{end}}
+  
+  <br>
+  <hr>
+  {{range $val := .Comments}}
+    <div class="comment">
+      <div class="media">
+        <div class="media-left">
+          <a href="#">
+            <img class="media-object photo-profile" src="/assets/profile/image-{{$val.Author_c_id}}.jpg" width="80" height="80" alt="...">
+          </a>
+        </div>
+        
+        <div class="media-body container">
+          <h4 class="media-heading text-info">{{$val.Author_name}} {{$val.Author_surname}}</h4>
+          <p>{{$val.Comment}}</p>
+          <p style="text-align: right;">{{$val.Date}}</p>
+        </div>
+      </div>
+    </div>
+    <hr>
+  {{end}}
+</div>
+</div>
+                     
+{{end}}

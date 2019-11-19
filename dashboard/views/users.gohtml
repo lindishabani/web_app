@@ -1,0 +1,101 @@
+{{define "content"}}
+  <!-- HEADER -->
+  <header id="main-header" class="py-2 bg-warning text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1>
+            <i class="fas fa-users"></i> Users</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{/* <!-- SEARCH -->
+  <section id="search" class="py-4 mb-4 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 ml-auto">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search Users...">
+            <div class="input-group-append">
+              <button class="btn btn-warning">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> */}}
+
+  <br>
+
+  <!-- USERS -->
+  <section id="users" class="w-100 p-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-header">
+              <h4>Latest Users</h4>
+            </div>
+            <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Name Surname</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {{range $val := .Users}}
+                <tr>
+                  <td>{{$val.Id}}</td>
+                  <td>{{$val.Name}} {{$val.Surname}}</td>
+                  <td>{{$val.Email}}</td>
+                  <td>{{$val.Role}}
+                      {{/* {{if $val.Role eq 0}} 
+                        User
+                      {{else}}
+                        Admin
+                      {{end}} */}}
+                 </td>
+                  <td>
+                    <a href="/edit_user/{{$val.Id}}" class="btn btn-secondary">
+                      <i class="fas fa-angle-double-right"></i> Edit
+                    </a>
+                  </td>
+                  <td>
+                    <a href="/delete_user/{{$val.Id}}" class="btn btn-danger">
+                      <i class="fas fa-angle-double-right"></i> delete
+                    </a>
+                  </td>
+                </tr>
+                {{end}}
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-center bg-warning text-white mb-3">
+            <div class="card-body">
+              <h3>Users</h3>
+              <h4 class="display-4">
+                <i class="fas fa-users"></i>{{ $length1 := len .Users }}
+                                                  {{ $length := len .Users }} {{ if eq $length1 $length1 }}
+                                                    {{ $length }}
+                                                  {{ end }}
+              </h4>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+ {{end}}

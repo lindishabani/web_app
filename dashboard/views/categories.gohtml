@@ -1,0 +1,107 @@
+{{define "content"}}
+  <!-- HEADER -->
+  <header id="main-header" class="py-2 bg-success text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1>
+            <i class="fas fa-folder"></i> Categories</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{/* <!-- SEARCH -->
+  <section id="search" class="py-4 mb-4 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 ml-auto">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search Categories...">
+            <div class="input-group-append">
+              <button class="btn btn-success">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> */}}
+
+  <!-- ACTIONS -->
+  <section id="actions" class="py-4 mb-4 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <a href="/add_category" class="btn btn-success btn-block">
+            <i class="fas fa-plus"></i> Add Category
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- CATEGORIES -->
+  <section id="categories" class="w-100 p-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-header">
+              <h4>Latest Categories</h4>
+            </div>
+            <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Title</th>
+                  <th>Date</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              {{range $val := .Categories}}
+                <tr>
+                  <td>{{ $val.Id }}</td>
+                  <td>{{ $val.Category }}</td>
+                  <td>{{ $val.Date }}</td>
+                  <td>
+                    <a href="/edit_category/{{ $val.Id }}" class="btn btn-secondary">
+                      <i class="fas fa-angle-double-right"></i> Edit
+                    </a>
+                  </td>
+                  <td>
+                    <a href="/delete_category/{{$val.Id}}" class="btn btn-danger">
+                      <i class="fas fa-angle-double-right"></i> Delete
+                    </a>
+                  </td>
+              {{end}}
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          
+
+          <div class="card text-center bg-success text-white mb-3">
+            <div class="card-body">
+              <h3>Categories</h3>
+              <h4 class="display-4">
+                <i class="fas fa-folder"></i> {{ $length1 := len .Categories }}
+                                                  {{ $length := len .Categories }} {{ if eq $length1 $length1 }}
+                                                    {{ $length }}
+                                                  {{ end }}
+              </h4>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+{{end}}

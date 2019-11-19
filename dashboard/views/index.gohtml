@@ -1,0 +1,230 @@
+{{define "content"}}
+  <!-- HEADER -->
+  <header id="main-header" class="py-2 bg-primary text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1>
+            <i class="fas fa-signal"></i> Dashboard</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ACTIONS -->
+  <section id="actions" class="py-4 mb-4 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <a href="/add_post" class="btn btn-primary btn-block">
+            <i class="fas fa-plus"></i> Add Post
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POSTS -->
+  <section id="posts" class="w-100 p-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-header">
+              <h4>Latest Posts</h4>
+            </div>
+            <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Date</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              
+
+              {{range $val := .Posts}}
+                <tr>
+                  <td>{{$val.Id}}</td>
+                  <td>{{$val.Title}}</td>
+                  <td>{{$val.Category}}</td>
+                  <td>{{$val.Date}}</td>
+                  <td>
+                    <a href="/post/{{$val.Id}}" class="btn btn-secondary">
+                      <i class="fas fa-angle-double-right"></i> Details
+                    </a>
+                  </td>
+                  <td>
+                    <a href="/edit/{{$val.Id}}" class="btn btn-secondary">
+                      <i class="fas fa-angle-double-right"></i> Edit
+                    </a>
+                  </td>
+                  <td>
+                    <a href="/delete/{{$val.Id}}" class="btn btn-danger">
+                      <i class="fas fa-angle-double-right"></i> Delete
+                    </a>
+                  </td>
+                </tr>
+              {{end}}
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-center bg-primary text-white mb-3">
+            <div class="card-body">
+              <h3>Posts</h3>
+              <h4 class="display-4">
+                <i class="fas fa-pencil-alt"></i> {{ $length1 := len .Posts }}
+                                                  {{ $length := len .Posts }} {{ if eq $length1 $length1 }}
+                                                    {{ $length }}
+                                                  {{ end }}
+              </h4>
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <!-- MODALS -->
+
+  <!-- ADD POST MODAL -->
+  <div class="modal fade" id="addPostModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">Add Post</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form enctype="multipart/form-data" id="new_article" method="POST" action="/dashboard">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" class="form-control" name="title">
+            </div>
+            <div class="form-group">
+              <label for="category">Category</label>
+              <select class="form-control">
+                <option value="">Web Development</option>
+                <option value="">Tech Gadgets</option>
+                <option value="">Business</option>
+                <option value="">Health & Wellness</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="image">Upload Image</label>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="image">
+                <label for="image" class="custom-file-label">Choose File</label>
+              </div>
+              <small class="form-text text-muted">Max Size 3mb</small>
+            </div>
+            <div class="form-group">
+              <label for="body">Body</label>
+              <textarea name="description" class="form-control"></textarea>
+            </div>
+            <div class="modal-footer">
+          <input type="submit" class="btn btn-primary" data-dismiss="modal" value="Save Changes" name="submit">
+            </div>
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD CATEGORY MODAL -->
+  <div class="modal fade" id="addCategoryModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title">Add Category</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" class="form-control">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" data-dismiss="modal">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD USER MODAL -->
+  <div class="modal fade" id="addUserModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-warning text-white">
+          <h5 class="modal-title">Add User</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="password2">Confirm Password</label>
+              <input type="password" class="form-control">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-warning" data-dismiss="modal">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+
+  <script>
+    // Get the current year for the copyright
+    $('#year').text(new Date().getFullYear());
+
+    CKEDITOR.replace('editor1');
+  </script>
+</body>
+
+</html>
+{{end}}
